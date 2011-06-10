@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+/** 
+ * NVIDIA Advanced CSS Drop-Down Menu Theme
+ */
+
+@import "dropdown-default.css";
+
+
+ul.dropdown li a {
+ display: block;
+ padding: 7px 14px;
+ color: #000;
+}
+
+
+/* ------------- Override default */
+
+	ul.dropdown li {
+		padding: 0;
+		background: #fff;
+		border-right: 1px solid #ddd;
+	}
+
+	ul.dropdown a:link,
+	ul.dropdown a:visited { color: #888; text-decoration: none; }
+	ul.dropdown a:hover { color: #76b900; text-decoration: none; background: #fff; }
+	ul.dropdown a:active { color: #888; }
+
+
+/* ------------- Reinitiate default: post-override activities  */
+
+	ul.dropdown li.dir {
+	 padding: 7px 20px 7px 14px;
+	}
+
+	ul.dropdown ul li.dir {
+	 padding-right: 15px;
+	}
+
+
+/* ------------- Custom */
+
+	ul.dropdown ul {
+		background: #eee;
+		color: #777;
+	}
+
+	ul.dropdown li {
+		height: auto;
+	}
+
+	ul.dropdown ul a:link, ul.dropdown ul a:visited {
+		line-height: normal;
+		padding: 4px 5px 4px 14px;
+		width: 111px; /* Especially for IE */
+		color: #777;
+		font-size: 8pt;
+	}
+
+	ul.dropdown ul a:hover {
+	 background-color: #76b900; /* green */ 
+	 color: #fff;
+	}
+
+	ul.dropdown a.open {
+	 background-color: #ddd;
+	 color: #0;
+	}
+
+	ul.dropdown ul a.open {
+	 background-color: #76b900;
+	 color: #fff;
+	}
+
+
+	/* CSS 2.1 */
+
+	ul.dropdown li:hover > a.dir {
+	 background-color: #fff;
+	 color: #76b900;
+	}
+
+	ul.dropdown ul li:hover > a.dir {
+	 background-color: #fff;
+	 color: #888;
+	}
