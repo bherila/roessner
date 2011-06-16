@@ -1,0 +1,6 @@
+﻿#m_navleft { margin: 0; padding: 0; }
+#m_navleft>li { margin: 1em 0; list-style-type: none; list-style-position: outside; }
+#m_navleft>li>a:link,
+#m_navleft>li>a:visited { text-decoration: none; color: #666; }
+#m_navleft>li>a:hover { color: orange; }
+.left-cur-item { color: Green; }

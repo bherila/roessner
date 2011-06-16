@@ -1,0 +1,42 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Template.master.cs" Inherits="roessner.Template" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:regular,regularitalic' rel='stylesheet' type='text/css'>
+
+    <style type="text/css">
+    
+    body, html { background: #ccc; margin: 0em auto; font-family: Verdana; font-size: 10pt; }
+    h1, h2 { font-family: 'Open Sans', arial, serif; font-weight: normal; }
+
+    .cmain { background: #fff; width: 1100px; margin: 0px auto auto auto; padding: 0 20px 20px 20px; }
+    #tmain>tbody>tr>td { vertical-align: top; text-align: left; }
+    .fr_img { float: right; margin-left: 1em; margin-bottom: 2em; border-bottom: 3px solid orange; }
+    
+    </style>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+<div class="cmain">
+<table border="0" cellpadding="14" cellspacing="0" id="tmain">
+<tbody>
+<tr><td>&nbsp;</td>
+    <td>
+    <asp:PlaceHolder runat="server" ID="topnav" />
+    </td></tr>
+<tr><td style="padding: 0 10px 0 0; width: 165px;"><asp:ContentPlaceHolder ID="cleft" runat="server">LEFT</asp:ContentPlaceHolder></td>
+<td>
+<asp:ContentPlaceHolder ID="cmain" runat="server">
+        
+</asp:ContentPlaceHolder>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</body>
+</html>
