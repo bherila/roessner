@@ -1,0 +1,26 @@
+﻿@model Dinamico.Models.ContentPage
+@{
+	Content.PrependDefinition(re => 
+	{
+		re.Container("Metadata", e =>
+		{
+			e.Name().Title("Path Segment");
+		});
+	});
+}
+
+<div>
+@if (!String.IsNullOrEmpty(Model.Image))
+{
+<div class="fr_img">
+<img src="@Model.Image" alt="Showcase: @Model.Title" />
+</div>
+}
+</div>
+@if (Model.ShowTitle)
+{
+    @Content.Register.Title().Container("Content").Configure(e => e.CssClass = "entry-title").Display()
+}
+<div class="entry-content">
+	@Content.Display.Text
+</div>

@@ -1,0 +1,133 @@
+﻿<!doctype html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,regularitalic" rel="stylesheet" type="text/css" />
+    <link rel="canonical" href="http://www.roessner.net/" />
+    <style type="text/css">
+        #cmain { width: 1000px; margin: 0 auto; padding: 0 20px 20px 20px; position: relative; overflow: hidden; text-align: left;
+                 padding-top: 3em;  }
+    </style>
+
+    @{ 
+        Html.Resources().StyleSheet(Url.ThemedContent("~/Content/a-dropdown.css"));
+        Html.Resources().StyleSheet(Url.ThemedContent("~/Content/b-dropdown.css"));
+        Html.Resources().StyleSheet(Url.ThemedContent("~/Content/style.css"));
+        Html.Resources().JQuery();
+        Html.Resources().JavaScript(Url.ThemedContent("~/Scripts/site.js"));
+
+        Content.PrependDefinition(re =>
+        {
+            re.Tab("Content", "Content");
+            re.PublishedRange().Container("Metadata");
+        });
+	 }
+    @if (IsSectionDefined("head"))
+    {
+        RenderSection("head");
+    }
+    else
+    { 
+        <title>Roessner &amp; Co.</title> 
+    }
+
+</head>
+<body>
+@{ Html.ControlPanel().Render(); }
+@{ Func<IEnumerable<N2.ContentItem>, IEnumerable<N2.ContentItem>> filter = (b => b.Where(a => a.Visible && !String.IsNullOrEmpty(a.Title))); }
+<div id="cmain">
+    
+	    @*<div id="top" class="clearfix">@{ Html.RenderPartial("LayoutPartials/Top"); }</div>*@
+	    @*<div id="header" class="clearfix">@{ Html.RenderPartial("LayoutPartials/Header"); }</div>*@
+     
+        <!-- top nav bar -->
+        <div id="topnav_bg"></div>
+        <div id="topnav">
+        @*@Html.Tree(Content.Traverse.StartPage, takeLevels: 2, htmlAttributes: new { id = "menu", @class = "dropdown dropdown-horizontal" }, appendCreatorNode: true)*@
+        <span><ul class="dropdown dropdown-horizontal">
+        @{ 
+            foreach (var item in filter(Content.Traverse.StartPage.Children))
+            {
+                <li><a href="@item.Url">@item.Title</a>
+                @{ 
+                if ((item as Dinamico.Models.PageModelBase).ConsiderChildrenInTopNav)
+                {
+                    var children = filter(item.Children).ToList();
+                    if (children.Count > 0)
+                    {
+                            <ul>@foreach (var subitem in children)
+                                {
+                                    <li><a href="@subitem.Url">@subitem.Title</a></li>
+                                }</ul>
+                    }
+                }
+                }
+                </li>
+            }
+        }
+        </ul></span>
+        </div>
+     
+        <!-- left nav bar (15%) -->
+        <div id="dLeft">
+        @if (Content.Current != null && Content.Current.Item.Parent != null && Content.Current.Item.Parent.Children.Count > 1)
+        {
+        <ul id="m_navleft">
+        @foreach (var item in filter(Content.Current.Item.Parent.Children)) {
+            if (item.ID == Content.Current.Item.ID) { <li class="left-cur-item">@Content.Current.Item.Title</li> }
+            else { <li><a href="@item.Url">@item.Title</a></li> }
+        }
+        </ul>
+        }
+
+        @if (IsSectionDefined("aside"))
+        { @RenderSection("aside");
+        }
+        else { Html.DroppableZone("aside").Render(); }
+        </div>
+     
+        <div id="dMiddle">
+        @if (IsSectionDefined("main"))
+        { @RenderSection("main");
+        }
+        else { Html.DroppableZone("main").Render(); }
+        @RenderBody()
+        </div>
+     
+     
+        <div id="copyrow">
+
+        <!-- sharing buttons -->
+        <div style="clear: both;" id="sharebuttons">
+            <script type="text/javascript">var switchTo5x = false;</script>
+            <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+            <script type="text/javascript">stLight.options({ publisher: '195ef393-c873-451b-84b4-f2bb8fe54cea' });</script>
+            <span class="st_email_button" displaytext="Email"></span>
+            <span class="st_twitter_button" displaytext="Tweet"></span>
+            <span class="st_facebook_button" displaytext="Facebook"></span>
+            <span class="st_stumbleupon_button" displaytext="StumbleUpon"></span>
+        </div>
+
+        <p style="padding-left: 3px;">
+            <a href="@Content.Traverse.StartPage.Url">Home</a> | 
+            <a href="/sitemap">Site Map</a> | 
+            <a href="/privacy">Privacy Policy</a> &nbsp; &nbsp; all content &copy; Roessner &amp; Co. 
+        </p>
+        </div>
+
+        @if ((Content.Current.Item as Dinamico.Models.PageModelBase).DisplayLogo)
+        {
+            <div id="seal" style="position: absolute; bottom: 2.3em; left: auto; vertical-align: bottom; width: 114px; height: 115px;">
+            <a href="@Content.Traverse.StartPage.Url"><img src="@Url.Content("~/Upload/images/seal.png")" alt="Roessner &amp; Co" border="0" style="border: none;" /></a>
+            </div>
+        }
+   
+ </div><!-- /cmain -->
+@{ Html.Zone("Scripts").Render(); }
+</body>
+</html>
