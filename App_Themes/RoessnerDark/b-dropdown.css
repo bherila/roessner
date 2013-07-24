@@ -32,7 +32,7 @@
 /* ----- ALL LEVELS (incl. first) */
 
 ul.dropdown {
- font: normal 12px "Trebuchet MS", Arial, Helvetica, sans-serif;
+ font: normal 12px 'Open Sans', Arial, Helvetica, sans-serif;
  text-transform: none;
 }
 
@@ -50,7 +50,7 @@ ul.dropdown {
 
 	ul.dropdown a:link,
 	ul.dropdown a:visited { color: #fff; text-decoration: none; }
-	ul.dropdown a:hover { color: #76b900; text-decoration: none; }
+	ul.dropdown a:hover { color: /* green #76b900*/ #FF9900; text-decoration: none; }
 	ul.dropdown a:active { color: #fff; }
 
 
@@ -61,8 +61,8 @@ ul.dropdown {
 
 	ul.dropdown ul {
 	 width: 170px;
-	 background-color: #333;
-	 color: #fff;
+	 background-color: #eee;
+	 color: #333;
 	 font-size: 11px;
 	 text-transform: none;
 	 filter: alpha(opacity=90);
@@ -83,9 +83,9 @@ ul.dropdown {
 		}
 
 		ul.dropdown ul a:link,
-		ul.dropdown ul a:visited { color: #fff; }
+		ul.dropdown ul a:visited { color: #333; }
 		ul.dropdown ul a:hover { color: #fff; text-decoration: none; }
-		ul.dropdown ul a:active { color: #fff; }
+		ul.dropdown ul a:active { color: #333; }
 
 
 /* ----- END LEVEL */
@@ -149,28 +149,28 @@ ul.dropdown li a {
 	}
 
 	ul.dropdown ul a:hover {
-	 background-color: #76b900;
+	 background-color: /*#76b900;*/ #FF9900;
 	}
 
 	ul.dropdown a.open {
-	 background-color: #2e2e2e;
+	 background-color: #eee;
 	 color: #76b900;
 	}
 
 	ul.dropdown ul a.open {
-	 background-color: #76b900;
-	 color: #fff;
+	 background-color: #eee;
+	 color: #666;
 	}
 
 
 	/* CSS 2.1 */
 
 	ul.dropdown li:hover > a.dir {
-	 background-color: #2e2e2e;
-	 color: #76b900;
+	 background-color: #eee;
+	 color: #666;
 	}
 
 	ul.dropdown ul li:hover > a.dir {
-	 background-color: #76b900;
-	 color: #fff;
+	 background-color: #eee;
+	 color: #666;
 	}

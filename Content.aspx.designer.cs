@@ -22,6 +22,15 @@ namespace roessner {
         protected global::System.Web.UI.WebControls.PlaceHolder m_img;
         
         /// <summary>
+        /// m_imgtag control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image m_imgtag;
+        
+        /// <summary>
         /// m_content control.
         /// </summary>
         /// <remarks>
@@ -38,5 +47,14 @@ namespace roessner {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl m_navleft;
+        
+        /// <summary>
+        /// seal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor seal;
     }
 }

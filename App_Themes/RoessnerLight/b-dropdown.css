@@ -32,7 +32,7 @@
 /* ----- ALL LEVELS (incl. first) */
 
 ul.dropdown {
- font: normal 12px "Trebuchet MS", Arial, Helvetica, sans-serif;
+ font: normal 12px 'Open Sans', Arial, Helvetica, sans-serif;
  text-transform: none;
 }
 
@@ -50,7 +50,7 @@ ul.dropdown {
 
 	ul.dropdown a:link,
 	ul.dropdown a:visited { color: #888; text-decoration: none; }
-	ul.dropdown a:hover { color: #76b900; text-decoration: none; }
+	ul.dropdown a:hover { color: /* green #76b900*/ #FF9900; text-decoration: none; }
 	ul.dropdown a:active { color: #888; }
 
 
@@ -149,7 +149,7 @@ ul.dropdown li a {
 	}
 
 	ul.dropdown ul a:hover {
-	 background-color: #76b900;
+	 background-color: /*#76b900;*/ #FF9900;
 	}
 
 	ul.dropdown a.open {

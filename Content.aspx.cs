@@ -5,32 +5,75 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using System.Text.RegularExpressions;
+using System.Drawing.Imaging;
 
 namespace roessner
 {
     public partial class Content : System.Web.UI.Page
     {
-        public string ImgSrc { get; set; }
+        List<ContentItem> ci;
+        ContentItem citem;
 
-        protected void Page_Load(object sender, EventArgs e) {
-            List<ContentItem> ci = Helpers.GetContentItems();
+        string CapText(Match m) {
+            return Helpers.GetContentURL(m.Groups[1].Value);
+        }
+
+        protected void Page_PreInit(object sender, EventArgs e) {
+            ci = Helpers.GetContentItems();
 
             /** page content **/
 
             var cq = from a in ci
-                     where a.name == Request["id"]
+                     where a.name == (Request["id"] ?? "default")
                      orderby a.l1order ascending, a.l2order ascending
                      select a;
 
-            var citem = cq.First();
+            try { citem = cq.First(); }
+            catch { throw new Exception(Request["id"]); }
+            if (!String.IsNullOrEmpty(citem.theme)) {
+                Page.Theme = citem.theme;
+            }
+            if (!String.IsNullOrEmpty(citem.HtmlTitle))
+                Page.Title = citem.HtmlTitle;
+            else if (!String.IsNullOrEmpty(citem.title)) {
+                Page.Title = citem.title + " | Roessner &amp; Co.";
+            }
+        }
+        protected override void  OnLoad(EventArgs e)
+        {
+ 	        base.OnLoad(e);
 
+            // set meta tags
+            if (!String.IsNullOrEmpty(citem.MetaDescription))
+                d.Attributes["content"] = citem.MetaDescription;
+            if (!String.IsNullOrEmpty(citem.MetaKeywords))
+                d.Attributes["content"] = citem.MetaKeywords;
+
+            // process content
             Markdown m = new Markdown();
             m_content.Text = m.Transform(citem.body);
-            Page.Title = citem.title;
+            m_content.Text = Regex.Replace(m_content.Text, "\\$\\$(.*?)\\$\\$", CapText).Replace('“', '"').Replace('”', '"');
 
-            ImgSrc = citem.img;
-            m_img.Visible = (!String.IsNullOrEmpty(ImgSrc));
-
+            m_imgtag.ImageUrl = citem.img;
+            string virtualImage = "/images/auto/" + citem.name + ".jpg";
+            if (System.IO.File.Exists(Server.MapPath(virtualImage)))
+                m_imgtag.ImageUrl = virtualImage;
+            else {
+                virtualImage = "/images/auto/" + citem.name + ".png";
+                if (System.IO.File.Exists(Server.MapPath(virtualImage)))
+                    m_imgtag.ImageUrl = virtualImage;
+            }
+            string physicalImage = Server.MapPath(virtualImage);
+            if (System.IO.File.Exists(physicalImage)) {
+                using (var img = System.Drawing.Bitmap.FromFile(physicalImage)) {
+                    m_imgtag.Height = new Unit(img.Height, UnitType.Pixel);
+                    m_imgtag.Width = new Unit(img.Width, UnitType.Pixel);
+                }
+            }
+            m_img.Visible = (!String.IsNullOrEmpty(m_imgtag.ImageUrl));
+            seal.Visible = !citem.logo.HasValue || citem.logo.Value == true; 
+              
 
             /** other items in category (L2 nav) **/
             var cl2 = from a in ci
